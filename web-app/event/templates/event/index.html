@@ -1,0 +1,37 @@
+{% extends 'event/base.html' %}
+{% block events_active %}active{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>{{ user.username }}'s Orders</h3>
+            </div>
+            {% if error_message %}
+                <p>&nbsp;&nbsp;&nbsp;<strong style="color: red">{{ error_message }}</strong></p>
+            {% endif %}
+            {% if orders %}
+                {% for order in orders %}
+                    <div class="col-sm-5 col-lg-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h4>Status: {{ order.o_status }}</h4>
+                                <h4>Order ID: {{ order.order_id }}</h4>
+                                <h4>Issued Time: {{ order.time }}</h4>
+                                <a href="{% url 'event:detail' order.order_id %}" class="btn btn-primary btn-sm" role="button">View Items</a>
+                                <a href="{% url 'event:change_destination' order.order_id %}"
+                                   class="btn btn-primary btn-sm" role="button">Change Destination</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+                {% endfor %}
+            {% else %}
+                <div class="caption">
+                    <h4>You currently don't have orders.</h4>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

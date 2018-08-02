@@ -1,0 +1,46 @@
+{% extends 'event/base.html' %}
+{% block title %}{{ event }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-4 col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>{{ user.username }}'s items in order {{ order_id }}</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Song Info -->
+            <div class="col-sm-8 col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <h3>All Items</h3>
+
+                        {% if error_message %}
+                            <p><strong>{{ error_message }}</strong></p>
+                        {% endif %}
+                        {% for item in items %}
+                            <div class="col-sm-5 col-lg-4">
+                                <div class="thumbnail">
+                                    <div class="caption">
+                                        <h4>Count: {{ item.count }}</h4>
+                                        <h4>Description: {{ item.description }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

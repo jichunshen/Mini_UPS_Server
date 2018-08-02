@@ -1,0 +1,34 @@
+{% extends 'event/base.html' %}
+{% block events_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        {% if orders %}
+            {% for order in orders %}
+                <div class="col-sm-5 col-lg-3">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h4>Status: {{ order.o_status }}</h4>
+                            <h4>Order ID: {{ order.order_id }}</h4>
+                            <h4>Issued Time: {{ order.time }}</h4>
+                            <h4>Whid: {{ order.whid }}</h4>
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-5 col-md-offset-0">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3 style="color: red">Invalid tracking number!</h3>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+        <a class="btn btn-success" href="{% url 'event:index' %}">Go Back</a>
+    </div>
+</div>
+{% endblock %}
