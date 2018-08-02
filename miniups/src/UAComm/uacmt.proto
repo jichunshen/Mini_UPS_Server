@@ -1,0 +1,77 @@
+syntax = "proto2";
+package UAComm;
+
+// A -> U
+message Loaded {
+	required int64 packageid = 1;	
+}
+
+message Product {
+	required int64 id = 1;
+	required string description = 2;
+	required int32 count = 3;
+}
+
+message Warehouse {
+	required int32 whid = 1;
+	required int32 whx = 2;
+	required int32 why = 3; 
+}
+
+message Purchase {
+	required int32 whid = 1;
+	required int32 x = 2;
+	required int32 y = 3;
+	repeated Product things = 4;
+	required int64 orderid = 5;
+	optional string upsuserid = 6;
+	required bool isprime = 7;
+}
+
+message ChangeDes {
+	required int64 pkgid = 1;
+	required int32 x = 2;
+	required int32 y = 3;
+}
+
+// A to U Command
+message AUCommands {
+	optional Purchase pc = 1;
+	optional Loaded ldd = 2; 
+	optional ChangeDes chdes = 3;
+	optional bool disconnect = 4;
+	repeated Warehouse whinfo = 5;
+}
+
+// U -> A
+message PackageStatus {
+	required int64 pkgid = 1;
+	required string status = 2;
+}
+
+message StartLoad {
+	required int32 whid = 1;
+	// required int64 packageid = 2;
+	required int32 truckid = 2;
+	repeated int64 packageid = 3;
+}
+
+message DesChangeResult {
+	required int64 pkgid = 1;
+	required bool res = 2;
+}
+
+message PackageID {
+	required int64 pkgid = 1;
+	required int64 orderid = 2;
+}
+
+// U to A Command
+message UACommands {
+	repeated StartLoad sl = 1; 
+	optional PackageID pid = 2;
+	repeated PackageStatus pks = 3;
+	optional DesChangeResult dcr = 4;
+	optional int64 worldid = 5;
+	optional bool finished = 6;
+}
